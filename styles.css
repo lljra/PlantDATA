@@ -1,0 +1,96 @@
+body {
+    background-color: beige;
+    font-family: Times New Roman, serif;
+    text-align: center;
+}
+
+h1 {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.table-container {
+    overflow-x: auto;
+    margin-bottom: 30px;
+}
+
+table {
+    width: 100%;
+    max-width: 800px;
+    margin: 20px auto;
+    border-collapse: collapse;
+    background-color: #fdfde7;
+    border: 2px solid black;
+}
+
+th, td {
+    border: 1px solid black;
+    padding: 4px;
+    text-align: center;
+}
+
+th {
+    background-color: #e6e6d1;
+    font-weight: bold;
+}
+
+td input {
+    width: 100%;
+    border: none;
+    background: transparent;
+    text-align: center;
+}
+
+.expand-btn {
+    cursor: pointer;
+    background: none;
+    border: none;
+    font-size: 16px;
+}
+
+.hidden-row {
+    display: none;
+}
+
+.hidden-table {
+    width: 95%;
+    margin: 10px auto;
+    border: 1px solid #aaa;
+    background-color: #f8f8f8;
+}
+
+.delete-btn {
+    display: none;
+    margin-left: 10px;
+    cursor: pointer;
+    color: red;
+    background: none;
+    border: none;
+    font-size: 16px;
+}
+
+tr:hover .delete-btn {
+    display: inline;
+}
+
+button {
+    margin-top: 10px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    background-color: #4CAF50;
+    color: white;
+    border-radius: 5px;
+}
+
+#reset {
+    background-color: #f44336;
+}
+
+#saveIndicator {
+    margin-top: 10px;
+    font-size: 14px;
+    color: green;
+    display: none;
+}

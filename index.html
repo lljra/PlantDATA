@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LED Plant Growth Table</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Light Emitting Diode (LED) used in planting</h1>
+    </header>
+    <main>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Show History</th>
+                        <th>PLANT</th>
+                        <th>GERMINATION TIME</th>
+                        <th>HEIGHT</th>
+                        <th>LEAF FORMATION</th>
+                        <th>DATE</th>
+                    </tr>
+                </thead>
+                <tbody id="mainTableBody">
+                    <!-- Table rows go here -->
+                </tbody>
+            </table>
+            <button onclick="saveData()">Save</button>
+            <p id="saveIndicator">Data saved successfully!</p>
+        </div>
+    </main>
+    <script src="script.js"></script>
+</body>
+</html>
