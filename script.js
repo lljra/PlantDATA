@@ -26,6 +26,12 @@ async function loadData() {
 // Save data to GitHub
 async function saveData() {
     try {
+        // Show "Saving..." indicator
+        const saveIndicator = document.getElementById("saveIndicator");
+        saveIndicator.style.display = "block";
+        saveIndicator.style.color = "blue";
+        saveIndicator.textContent = "Saving...";
+
         // Capture input data
         const tables = document.querySelectorAll(".table-container");
         const allData = [];
@@ -76,11 +82,23 @@ async function saveData() {
 
         if (!updateResponse.ok) throw new Error("Error saving data");
 
-        document.getElementById("saveIndicator").style.display = "block";
-        setTimeout(() => document.getElementById("saveIndicator").style.display = "none", 3000);
+        // Show success message
+        saveIndicator.style.color = "green";
+        saveIndicator.textContent = "Data saved successfully!";
+        console.log("Data saved successfully!");
     } catch (error) {
         console.error("Error saving data:", error);
+
+        // Show error message
+        const saveIndicator = document.getElementById("saveIndicator");
+        saveIndicator.style.color = "red";
+        saveIndicator.textContent = "Error saving data!";
     }
+
+    // Hide message after 3 seconds
+    setTimeout(() => {
+        document.getElementById("saveIndicator").style.display = "none";
+    }, 3000);
 }
 
 // Populate tables with loaded data
