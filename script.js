@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const GITHUB_USERNAME = "lljra"; 
     const REPO_NAME = "PlantDATA"; 
     const FILE_PATH = "data.json"; 
-    const TOKEN = "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"; 
+    const TOKEN = "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"; 
 
     document.querySelectorAll(".expand-btn").forEach(button => {
         button.addEventListener("click", function () {
