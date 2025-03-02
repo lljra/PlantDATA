@@ -1,96 +1,153 @@
+/* General page styling */
 body {
-    background-color: beige;
-    font-family: Times New Roman, serif;
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    margin: 0;
+    padding: 20px;
     text-align: center;
 }
 
-h1 {
-    font-size: 24px;
+/* Page Header */
+header {
+    background-color: #007bff;
+    color: white;
+    padding: 15px;
+    font-size: 22px;
     font-weight: bold;
+    margin-bottom: 20px;
+    border-radius: 8px;
 }
 
+/* Table Container */
 .table-container {
-    overflow-x: auto;
-    margin-bottom: 30px;
+    display: inline-block;
+    margin: 20px;
+    width: 45%;
+    background: white;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
 }
 
+/* Main Table Styling */
 table {
     width: 100%;
-    max-width: 800px;
-    margin: 20px auto;
     border-collapse: collapse;
-    background-color: #fdfde7;
-    border: 2px solid black;
+    margin-top: 10px;
 }
 
 th, td {
-    border: 1px solid black;
-    padding: 4px;
+    border: 1px solid #ccc;
+    padding: 8px;
     text-align: center;
 }
 
 th {
-    background-color: #e6e6d1;
-    font-weight: bold;
-}
-
-td input {
-    width: 100%;
-    border: none;
-    background: transparent;
-    text-align: center;
-}
-
-.expand-btn {
-    cursor: pointer;
-    background: none;
-    border: none;
-    font-size: 16px;
-}
-
-.hidden-row {
-    display: none;
-}
-
-.hidden-table {
-    width: 95%;
-    margin: 10px auto;
-    border: 1px solid #aaa;
-    background-color: #f8f8f8;
-}
-
-.delete-btn {
-    display: none;
-    margin-left: 10px;
-    cursor: pointer;
-    color: red;
-    background: none;
-    border: none;
-    font-size: 16px;
-}
-
-tr:hover .delete-btn {
-    display: inline;
-}
-
-button {
-    margin-top: 10px;
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
-    border: none;
-    background-color: #4CAF50;
+    background-color: #007bff;
     color: white;
+}
+
+/* Alternating Row Colors */
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+tr:nth-child(odd) {
+    background-color: #ffffff;
+}
+
+/* Expand Button */
+.expand-btn {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    font-size: 16px;
+    cursor: pointer;
     border-radius: 5px;
 }
 
-#reset {
-    background-color: #f44336;
+.expand-btn:hover {
+    background-color: #218838;
 }
 
+/* Input Fields */
+input {
+    width: 90%;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    text-align: center;
+}
+
+/* Hidden Table (For History) */
+.hidden-row {
+    display: none;
+    background-color: #eef5ff;
+}
+
+.hidden-table {
+    width: 100%;
+    margin-top: 10px;
+    border: 1px solid #bbb;
+}
+
+.hidden-table th {
+    background-color: #17a2b8;
+    color: white;
+}
+
+.hidden-tbody tr:nth-child(even) {
+    background-color: #e3f2fd;
+}
+
+/* Add Row Button */
+.add-row-btn {
+    background-color: #ffc107;
+    color: black;
+    border: none;
+    padding: 8px 12px;
+    font-size: 14px;
+    cursor: pointer;
+    margin-top: 10px;
+    border-radius: 5px;
+}
+
+.add-row-btn:hover {
+    background-color: #e0a800;
+}
+
+/* Save Button */
+button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 15px;
+    border-radius: 5px;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+/* Save Indicator */
 #saveIndicator {
     margin-top: 10px;
-    font-size: 14px;
-    color: green;
-    display: none;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+/* Responsive Design */
+@media (max-width: 800px) {
+    .table-container {
+        width: 100%;
+    }
+
+    input {
+        width: 80%;
+    }
 }
