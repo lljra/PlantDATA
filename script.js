@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function() {
     document.querySelectorAll(".expand-btn").forEach(button => {
-        button.addEventListener("click", function () {
+        button.addEventListener("click", function() {
             let hiddenRow = this.closest("tr").nextElementSibling;
             hiddenRow.style.display = hiddenRow.style.display === "table-row" ? "none" : "table-row";
             this.textContent = this.textContent === "+" ? "-" : "+";
@@ -8,13 +8,15 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
     document.querySelectorAll(".add-row-btn").forEach(button => {
-        button.addEventListener("click", function () {
+        button.addEventListener("click", function() {
             let tbody = this.previousElementSibling.querySelector(".hidden-tbody");
             let newRow = document.createElement("tr");
-            newRow.innerHTML = '<td><input type="text" placeholder="Enter Height"></td>' +
-                               '<td><input type="text" placeholder="Enter Leaf Information"></td>' +
-                               '<td><input type="text" placeholder="Enter Date"></td>' +
-                               '<td><button class="delete-btn">✖</button></td>';
+            newRow.innerHTML = `
+                <td><input type="text" placeholder="Enter Height"></td>
+                <td><input type="text" placeholder="Enter Leaf Information"></td>
+                <td><input type="text" placeholder="Enter Date"></td>
+                <td><button class="delete-btn">✖</button></td>
+            `;
             tbody.appendChild(newRow);
             attachDeleteFunction(newRow);
         });
@@ -22,7 +24,10 @@ document.addEventListener("DOMContentLoaded", function() {
 
     function attachDeleteFunction(row) {
         let deleteBtn = row.querySelector(".delete-btn");
-        // Additional delete functionality goes here
+        deleteBtn.addEventListener("click", function() {
+            row.remove();
+            saveData(); // Save the updated data after deleting a row
+        });
     }
 
     function saveData() {
