@@ -1,114 +1,106 @@
-document.addEventListener("DOMContentLoaded", function () {
-    const GITHUB_USERNAME = "lljra"; 
-    const REPO_NAME = "PlantDATA"; 
-    const FILE_PATH = "data.json"; 
-    const TOKEN = "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"; 
+const GITHUB_USERNAME = "lljra";
+const REPO_NAME = "PlantDATA";
+const FILE_PATH = "data.json"; // Make sure data.json exists in the repo
+const BRANCH = "main"; // Change if using another branch
+const TOKEN = "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"; // Secure this!
 
-    document.querySelectorAll(".expand-btn").forEach(button => {
-        button.addEventListener("click", function () {
-            let hiddenRow = this.closest("tr").nextElementSibling;
-            hiddenRow.style.display = hiddenRow.style.display === "table-row" ? "none" : "table-row";
-            this.textContent = this.textContent === "+" ? "-" : "+";
+// Fetch latest data.json file
+async function loadData() {
+    try {
+        const response = await fetch(`https://api.github.com/repos/${GITHUB_USERNAME}/${REPO_NAME}/contents/${FILE_PATH}?ref=${BRANCH}`, {
+            headers: { Authorization: `token ${TOKEN}` }
         });
-    });
 
-    document.querySelectorAll(".add-row-btn").forEach(button => {
-        button.addEventListener("click", function () {
-            let tbody = this.previousElementSibling.querySelector(".hidden-tbody");
-            let newRow = document.createElement("tr");
-            newRow.innerHTML = `
-                <td><input type="text" placeholder="Enter Height"></td>
-                <td><input type="text" placeholder="Enter Leaf Information"></td>
-                <td><input type="text" placeholder="Enter Date"></td>
-                <td><button class="delete-btn">✖</button></td>
-            `;
-            tbody.appendChild(newRow);
-            attachDeleteFunction(newRow);
-        });
-    });
+        if (!response.ok) throw new Error("Failed to fetch data.json");
 
-    function attachDeleteFunction(row) {
-        row.querySelector(".delete-btn").addEventListener("click", function () {
-            row.remove();
-        });
+        const fileData = await response.json();
+        const content = atob(fileData.content); // Decode base64 content
+        const data = JSON.parse(content);
+
+        populateTables(data);
+    } catch (error) {
+        console.error("Error loading data:", error);
     }
+}
 
-    async function getFileSha() {
-        const response = await fetch(`https://api.github.com/repos/${GITHUB_USERNAME}/${REPO_NAME}/contents/${FILE_PATH}`, {
-            headers: {
-                Authorization: `token ${TOKEN}`,
-                Accept: "application/vnd.github.v3+json"
-            }
-        });
-        if (!response.ok) {
-            console.error("Error fetching file SHA:", response.statusText);
-            return null;
-        }
-        const data = await response.json();
-        return data.sha;
-    }
+// Save data to GitHub
+async function saveData() {
+    try {
+        // Capture input data
+        const tables = document.querySelectorAll(".table-container");
+        const allData = [];
 
-    async function saveData() {
-        let allData = [];
-        document.querySelectorAll("tbody tr.main-row").forEach(mainRow => {
-            let rowData = {
-                plant: mainRow.children[1].textContent,
-                germinationTime: mainRow.children[2].querySelector("input").value,
-                height: mainRow.children[3].querySelector("input").value,
-                leafFormation: mainRow.children[4].querySelector("input").value,
-                date: mainRow.children[5].querySelector("input").value,
-                history: []
-            };
-            let hiddenTable = mainRow.nextElementSibling.querySelector(".hidden-tbody");
-            if (hiddenTable) {
-                hiddenTable.querySelectorAll("tr").forEach(hiddenRow => {
-                    let inputs = hiddenRow.querySelectorAll("input");
-                    if (inputs.length > 0) {
-                        rowData.history.push({
-                            height: inputs[0].value,
-                            leafInfo: inputs[1].value,
-                            date: inputs[2].value
-                        });
-                    }
+        tables.forEach((table, index) => {
+            const rows = table.querySelectorAll(".main-row");
+            const tableData = [];
+
+            rows.forEach(row => {
+                const inputs = row.querySelectorAll("input");
+                tableData.push({
+                    plant: row.children[1].textContent,
+                    germinationTime: inputs[0].value,
+                    height: inputs[1].value,
+                    leafFormation: inputs[2].value,
+                    date: inputs[3].value
                 });
-            }
-            allData.push(rowData);
+            });
+
+            allData.push({ tableIndex: index, data: tableData });
         });
 
-        let fileSha = await getFileSha();
-        if (!fileSha) {
-            alert("Error fetching file SHA. Check your repository and token.");
-            return;
-        }
+        // Fetch the latest file SHA
+        const fileResponse = await fetch(`https://api.github.com/repos/${GITHUB_USERNAME}/${REPO_NAME}/contents/${FILE_PATH}?ref=${BRANCH}`, {
+            headers: { Authorization: `token ${TOKEN}` }
+        });
 
-        const payload = {
-            message: "Update data.json via GitHub API",
-            content: btoa(JSON.stringify(allData, null, 2)), // Encode to Base64
-            sha: fileSha
-        };
+        if (!fileResponse.ok) throw new Error("Error fetching file SHA");
 
-        fetch(`https://api.github.com/repos/${GITHUB_USERNAME}/${REPO_NAME}/contents/${FILE_PATH}`, {
+        const fileData = await fileResponse.json();
+        const sha = fileData.sha;
+
+        // Upload updated content
+        const newContent = btoa(JSON.stringify(allData, null, 2));
+        const updateResponse = await fetch(`https://api.github.com/repos/${GITHUB_USERNAME}/${REPO_NAME}/contents/${FILE_PATH}`, {
             method: "PUT",
-            headers: {
+            headers: { 
                 Authorization: `token ${TOKEN}`,
-                Accept: "application/vnd.github.v3+json",
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify(payload)
-        })
-        .then(response => response.json())
-        .then(data => {
-            console.log("Success:", data);
-            document.getElementById("saveIndicator").style.display = "block";
-            setTimeout(() => {
-                document.getElementById("saveIndicator").style.display = "none";
-            }, 2000);
-        })
-        .catch(error => {
-            console.error("Error:", error);
-            alert("Failed to save data to GitHub.");
+            body: JSON.stringify({
+                message: "Updated plant data",
+                content: newContent,
+                sha,
+                branch: BRANCH
+            })
         });
-    }
 
-    window.saveData = saveData;
-});
+        if (!updateResponse.ok) throw new Error("Error saving data");
+
+        document.getElementById("saveIndicator").style.display = "block";
+        setTimeout(() => document.getElementById("saveIndicator").style.display = "none", 3000);
+    } catch (error) {
+        console.error("Error saving data:", error);
+    }
+}
+
+// Populate tables with loaded data
+function populateTables(data) {
+    const tables = document.querySelectorAll(".table-container");
+
+    data.forEach((tableObj, index) => {
+        const rows = tables[index].querySelectorAll(".main-row");
+
+        tableObj.data.forEach((plantData, rowIndex) => {
+            const inputs = rows[rowIndex].querySelectorAll("input");
+            if (inputs.length === 4) {
+                inputs[0].value = plantData.germinationTime;
+                inputs[1].value = plantData.height;
+                inputs[2].value = plantData.leafFormation;
+                inputs[3].value = plantData.date;
+            }
+        });
+    });
+}
+
+// Load data on page load
+window.onload = loadData;
