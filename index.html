@@ -23,75 +23,49 @@
                         <th>DATE</th>
                     </tr>
                 </thead>
-                <tbody id="mainTableBody">
-                    <tr class="main-row">
-                        <td><button class="expand-btn">+</button></td>
-                        <td>A</td>
-                        <td><input type="text" placeholder="Germination Time"></td>
-                        <td><input type="text" placeholder="Height"></td>
-                        <td><input type="text" placeholder="Plant Information"></td>
-                        <td><input type="text" placeholder="Date"></td>
+                <tbody>
+                    <tr class="main-row"><td><button class="expand-btn">+</button></td><td>A</td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td></tr>
+                    <tr class="hidden-row"><td colspan="6"><table class="hidden-table"><tbody class="hidden-tbody"></tbody></table><button class="add-row-btn">Add Row</button></td></tr>
+
+                    <tr class="main-row"><td><button class="expand-btn">+</button></td><td>B</td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td></tr>
+                    <tr class="hidden-row"><td colspan="6"><table class="hidden-table"><tbody class="hidden-tbody"></tbody></table><button class="add-row-btn">Add Row</button></td></tr>
+
+                    <tr class="main-row"><td><button class="expand-btn">+</button></td><td>C</td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td></tr>
+                    <tr class="hidden-row"><td colspan="6"><table class="hidden-table"><tbody class="hidden-tbody"></tbody></table><button class="add-row-btn">Add Row</button></td></tr>
+
+                    <tr class="main-row"><td><button class="expand-btn">+</button></td><td>D</td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td></tr>
+                    <tr class="hidden-row"><td colspan="6"><table class="hidden-table"><tbody class="hidden-tbody"></tbody></table><button class="add-row-btn">Add Row</button></td></tr>
+                </tbody>
+            </table>
+            <button onclick="saveData()">Save</button>
+            <p id="saveIndicator" style="display: none;">Data saved successfully!</p>
+        </div>
+
+        <!-- Second identical table -->
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Show History</th>
+                        <th>PLANT</th>
+                        <th>GERMINATION TIME</th>
+                        <th>HEIGHT</th>
+                        <th>LEAF FORMATION</th>
+                        <th>DATE</th>
                     </tr>
-                    <tr class="hidden-row">    
-                        <td colspan="6">
-                            <table class="hidden-table">
-                                <tr><th>Height</th><th>Leaf Information</th><th>Date</th><th>-</th></tr>
-                                <tbody class="hidden-tbody"></tbody>
-                            </table>
-                            <button class="add-row-btn">Add Row</button>
-                        </td>
-                    </tr>
-                    <tr class="main-row">
-                        <td><button class="expand-btn">+</button></td>
-                        <td>B</td>
-                        <td><input type="text" placeholder="Germination Time"></td>
-                        <td><input type="text" placeholder="Height"></td>
-                        <td><input type="text" placeholder="Plant Information"></td>
-                        <td><input type="text" placeholder="Date"></td>
-                    </tr>
-                    <tr class="hidden-row">
-                        <td colspan="6">
-                            <table class="hidden-table">
-                                <tr><th>Height</th><th>Leaf Information</th><th>Date</th><th>-</th></tr>
-                                <tbody class="hidden-tbody"></tbody>
-                            </table>
-                            <button class="add-row-btn">Add Row</button>
-                        </td>
-                    </tr>
-                    <tr class="main-row">
-                        <td><button class="expand-btn">+</button></td>
-                        <td>C</td>
-                        <td><input type="text" placeholder="Germination Time"></td>
-                        <td><input type="text" placeholder="Height"></td>
-                        <td><input type="text" placeholder="Plant Information"></td>
-                        <td><input type="text" placeholder="Date"></td>
-                    </tr>
-                    <tr class="hidden-row">
-                        <td colspan="6">
-                            <table class="hidden-table">
-                                <tr><th>Height</th><th>Leaf Information</th><th>Date</th><th>-</th></tr>
-                                <tbody class="hidden-tbody"></tbody>
-                            </table>
-                            <button class="add-row-btn">Add Row</button>
-                        </td>
-                    </tr>
-                    <tr class="main-row">
-                        <td><button class="expand-btn">+</button></td>
-                        <td>D</td>
-                        <td><input type="text" placeholder="Germination Time"></td>
-                        <td><input type="text" placeholder="Height"></td>
-                        <td><input type="text" placeholder="Plant Information"></td>
-                        <td><input type="text" placeholder="Date"></td>
-                    </tr>
-                    <tr class="hidden-row">
-                        <td colspan="6">
-                            <table class="hidden-table">
-                                <tr><th>Height</th><th>Leaf Information</th><th>Date</th><th>-</th></tr>
-                                <tbody class="hidden-tbody"></tbody>
-                            </table>
-                            <button class="add-row-btn">Add Row</button>
-                        </td>
-                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="main-row"><td><button class="expand-btn">+</button></td><td>A</td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td></tr>
+                    <tr class="hidden-row"><td colspan="6"><table class="hidden-table"><tbody class="hidden-tbody"></tbody></table><button class="add-row-btn">Add Row</button></td></tr>
+
+                    <tr class="main-row"><td><button class="expand-btn">+</button></td><td>B</td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td></tr>
+                    <tr class="hidden-row"><td colspan="6"><table class="hidden-table"><tbody class="hidden-tbody"></tbody></table><button class="add-row-btn">Add Row</button></td></tr>
+
+                    <tr class="main-row"><td><button class="expand-btn">+</button></td><td>C</td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td></tr>
+                    <tr class="hidden-row"><td colspan="6"><table class="hidden-table"><tbody class="hidden-tbody"></tbody></table><button class="add-row-btn">Add Row</button></td></tr>
+
+                    <tr class="main-row"><td><button class="expand-btn">+</button></td><td>D</td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td></tr>
+                    <tr class="hidden-row"><td colspan="6"><table class="hidden-table"><tbody class="hidden-tbody"></tbody></table><button class="add-row-btn">Add Row</button></td></tr>
                 </tbody>
             </table>
             <button onclick="saveData()">Save</button>
