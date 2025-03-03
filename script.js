@@ -1,7 +1,7 @@
 const GITHUB_USERNAME = "lljra";
 const REPO_NAME = "PlantDATA";
 const FILE_PATH = "data.json"; // Make sure data.json exists in the repo    
-const TOKEN = "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"; // Secure this!
+const TOKEN = "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"; // Secure this!
 
 // GitHub API URLs
 const API_BASE = `https://api.github.com/repos/${GITHUB_USERNAME}/${REPO_NAME}/contents/${FILE_PATH}`;
